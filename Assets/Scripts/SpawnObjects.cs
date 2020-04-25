@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 
 public class SpawnObjects : MonoBehaviour
 {
-    public static GameObject spawnObject=null;
-    
+    public static GameObject spawnableObject=null;
+    private GameObject spawnedObject=null;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +18,8 @@ public class SpawnObjects : MonoBehaviour
     void Update()
     {
         SpawnObject();
+        DestroyObjects();
+
     }
 
     void SpawnObject()
@@ -25,7 +27,7 @@ public class SpawnObjects : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
-        if (spawnObject == null)
+        if (spawnableObject == null)
         {
             return;
         }
@@ -36,15 +38,43 @@ public class SpawnObjects : MonoBehaviour
                 var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 RaycastHit2D hit = Physics2D.Raycast(ray, Camera.main.transform.forward);
 
-                if (hit.collider.CompareTag("Ground"))
+                if (hit.collider.CompareTag("Ground") || hit.collider.CompareTag("Coin") || hit.collider.CompareTag("startPoint") || hit.collider.CompareTag("endPoint"))
                     return;
                 else if (hit)
                 {
-                    Instantiate(spawnObject, hit.point, Quaternion.identity);
+                    spawnedObject=Instantiate(spawnableObject, hit.point, Quaternion.identity) as GameObject;
                 }
 
             }
         }
     }
-   
+
+    void DestroyObjects()
+    {
+        /*if (Input.GetMouseButtonDown(1))
+        {
+            if (spawnedObject == null)
+                return;
+            else if (spawnedObject.CompareTag("Ground") ||spawnedObject.CompareTag("Coin") || spawnedObject.CompareTag("startPoint") || spawnedObject.CompareTag("endPoint"))
+                Destroy(spawnedObject);
+           
+        }
+        */
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(ray, Camera.main.transform.forward);
+
+            if (hit.collider.CompareTag("Ground") || hit.collider.CompareTag("Coin") || hit.collider.CompareTag("startPoint") || hit.collider.CompareTag("endPoint"))
+                Destroy(hit.collider.gameObject);
+                
+            else 
+            {
+                 return;
+            }
+
+        }
+    }
+
 }
