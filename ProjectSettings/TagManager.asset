@@ -8,6 +8,7 @@ TagManager:
   - startPoint
   - endPoint
   - gameOverScreen
+  - Coin
   layers:
   - Default
   - TransparentFX

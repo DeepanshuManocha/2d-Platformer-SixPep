@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private float speed, jumpForce;
     public GameObject gameOver;
-
+    
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +35,11 @@ public class Player : MonoBehaviour
         {
             gameOver = Instantiate(gameOver, new Vector2(0,0), Quaternion.identity) as GameObject;
             Time.timeScale = 0;
+        }
+
+        if (collision.CompareTag("Coin"))
+        {
+            Destroy(collision.gameObject);
         }
 
     }
