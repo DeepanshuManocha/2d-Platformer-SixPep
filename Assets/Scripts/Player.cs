@@ -7,13 +7,13 @@ public class Player : MonoBehaviour
     private bool isGrounded;
     private Rigidbody2D rb;
     [SerializeField] private float speed, jumpForce;
-    private Vector2 startPoint;
-    public GameObject player;
+    public GameObject gameOver;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();    
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -28,6 +28,17 @@ public class Player : MonoBehaviour
         isGrounded = false;
         Debug.Log(isGrounded);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("endPoint"))
+        {
+            gameOver = Instantiate(gameOver, new Vector2(0,0), Quaternion.identity) as GameObject;
+            Time.timeScale = 0;
+        }
+
+    }
+    
 
     private void PlayerControl()
     {
