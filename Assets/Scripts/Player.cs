@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     private bool isGrounded;
     private Rigidbody2D rb;
     [SerializeField] private float speed, jumpForce;
+    private Vector2 startPoint;
+    public GameObject player;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +39,9 @@ public class Player : MonoBehaviour
         transform.Translate(new Vector2(horizontal * speed, rb.velocity.y) * Time.deltaTime);
         
     }
+
+    
+
 
     // Update is called once per frame
     void Update()
