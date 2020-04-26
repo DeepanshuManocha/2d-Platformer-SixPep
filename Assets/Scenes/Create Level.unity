@@ -359,6 +359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPointSpawned: 0
   endPointSpawned: 0
+  dataList: []
 --- !u!1 &142164981
 GameObject:
   m_ObjectHideFlags: 0
@@ -2079,7 +2080,7 @@ GameObject:
   - component: {fileID: 1395414469}
   - component: {fileID: 1395414468}
   m_Layer: 0
-  m_Name: GsmeHandler
+  m_Name: GameHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2109,6 +2110,7 @@ MonoBehaviour:
     type: 3}
   playerSpawner: {fileID: 0}
   loadLevelMenu: {fileID: 0}
+  spawnObjects: {fileID: 120306390}
 --- !u!4 &1395414469
 Transform:
   m_ObjectHideFlags: 0
@@ -2720,7 +2722,7 @@ GameObject:
   - component: {fileID: 1997500153}
   - component: {fileID: 1997500152}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Save Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

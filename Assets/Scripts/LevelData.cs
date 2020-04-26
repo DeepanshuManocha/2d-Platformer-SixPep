@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class LevelData : MonoBehaviour
+public class LevelData 
 {
     public List<SpawnableObjectData.Data> objectData;
 }

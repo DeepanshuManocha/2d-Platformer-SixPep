@@ -10,7 +10,8 @@ public class GameHandler : MonoBehaviour
     [SerializeField] private Text SaveLoadMessage;
     private LevelData level;
     [SerializeField]private GameObject platform, coin, startPoint, endPoint, playerSpawner, loadLevelMenu;
-
+    public SpawnObjects spawnObjects;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -32,12 +33,10 @@ public class GameHandler : MonoBehaviour
 
     public void SaveLevel()
     {
-        SpawnableObjectData[] Objectsfound = FindObjectsOfType<SpawnableObjectData>();
-        foreach (SpawnableObjectData obj in Objectsfound)
-            level.objectData.Add(obj.data);
-
-        string json = JsonUtility.ToJson(level);
+        level.objectData = spawnObjects.dataList;
         string folder = Application.dataPath + "/SavedData";
+        string json = JsonUtility.ToJson(level);
+        
         string levelFile = "";
 
         if (saveLevelName.text == "")
@@ -94,8 +93,6 @@ public class GameHandler : MonoBehaviour
             if (level.objectData[i].objectType == SpawnableObjectData.DataType.platform)
             {
                 newObject = Instantiate(platform, level.objectData[i].position, Quaternion.identity);
-                
-
                 SpawnableObjectData spawnableObj = newObject.AddComponent<SpawnableObjectData>();
                 spawnableObj.data.position = newObject.transform.position;
                 spawnableObj.data.objectType = SpawnableObjectData.DataType.platform;
@@ -104,8 +101,6 @@ public class GameHandler : MonoBehaviour
             else if (level.objectData[i].objectType == SpawnableObjectData.DataType.coin)
             {
                 newObject = Instantiate(coin, level.objectData[i].position, Quaternion.identity);
-                
-
                 SpawnableObjectData spawnableObj = newObject.AddComponent<SpawnableObjectData>();
                 spawnableObj.data.position = newObject.transform.position;
                 spawnableObj.data.objectType = SpawnableObjectData.DataType.coin;
@@ -116,8 +111,6 @@ public class GameHandler : MonoBehaviour
             else if (level.objectData[i].objectType == SpawnableObjectData.DataType.startPos)
             {
                 newObject = Instantiate(startPoint, level.objectData[i].position, Quaternion.identity);
-                
-
                 SpawnableObjectData spawnableObj = newObject.AddComponent<SpawnableObjectData>();
                 spawnableObj.data.position = newObject.transform.position;
                 spawnableObj.data.objectType = SpawnableObjectData.DataType.startPos;
@@ -126,8 +119,6 @@ public class GameHandler : MonoBehaviour
             else if (level.objectData[i].objectType == SpawnableObjectData.DataType.endPos)
             {
                 newObject = Instantiate(endPoint, level.objectData[i].position, Quaternion.identity);
-                 
-             
                 SpawnableObjectData spawnableObj = newObject.AddComponent<SpawnableObjectData>();
                 spawnableObj.data.position = newObject.transform.position;
                 spawnableObj.data.objectType = SpawnableObjectData.DataType.endPos;

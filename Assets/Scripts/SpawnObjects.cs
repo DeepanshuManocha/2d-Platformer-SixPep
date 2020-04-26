@@ -8,7 +8,7 @@ public class SpawnObjects : MonoBehaviour
     public static GameObject spawnableObject=null;
     private GameObject spawnedObject=null;
     public bool startPointSpawned, endPointSpawned;
-
+    public List<SpawnableObjectData.Data> dataList=new List<SpawnableObjectData.Data>(); 
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,6 @@ public class SpawnObjects : MonoBehaviour
     {
         SpawnObject();
         DestroyObjects();
-
     }
 
     void SpawnObject()
@@ -31,9 +30,7 @@ public class SpawnObjects : MonoBehaviour
             return;
 
         if (spawnableObject == null)
-        {
             return;
-        }
         else
         {
             if (Input.GetMouseButtonDown(0))
@@ -45,21 +42,36 @@ public class SpawnObjects : MonoBehaviour
                     return;
                 else if (hit)
                 {
-                    if(spawnableObject.CompareTag("Ground") || spawnableObject.CompareTag("Coin"))
+                    if (spawnableObject.CompareTag("Ground") || spawnableObject.CompareTag("Coin"))
                         spawnedObject = Instantiate(spawnableObject, hit.point, Quaternion.identity) as GameObject;
-                    if(spawnableObject.CompareTag("startPoint") && !startPointSpawned)
+                    if (spawnableObject.CompareTag("startPoint") && !startPointSpawned)
                         spawnedObject = Instantiate(spawnableObject, hit.point, Quaternion.identity) as GameObject;
                     if (spawnableObject.CompareTag("endPoint") && !endPointSpawned)
                         spawnedObject = Instantiate(spawnableObject, hit.point, Quaternion.identity) as GameObject;
-                   
+
+                    AddDataToList();
+
                     if (spawnedObject.CompareTag("startPoint"))
                         startPointSpawned = true;
                     if (spawnedObject.CompareTag("endPoint"))
                         endPointSpawned = true;
-                    
                 }
             }
         }
+    }
+
+    void AddDataToList()
+    {
+        float x = spawnedObject.transform.position.x;
+        float y = spawnedObject.transform.position.y;
+        Vector2 objectPosition = new Vector2(x, y);
+        var objectData = spawnedObject.GetComponent<SpawnableObjectData>().data.objectType;
+
+        SpawnableObjectData.Data spawnableObjectData = new SpawnableObjectData.Data();
+        spawnableObjectData.position = objectPosition;
+        spawnableObjectData.objectType = objectData;
+
+        dataList.Add(spawnableObjectData);
     }
 
     void DestroyObjects()

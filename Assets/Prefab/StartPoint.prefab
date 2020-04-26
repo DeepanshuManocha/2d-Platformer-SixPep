@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3394358466658893544}
   - component: {fileID: 2963999643647129218}
   - component: {fileID: 7117781145499203725}
+  - component: {fileID: 7665102400175046346}
   m_Layer: 0
   m_Name: StartPoint
   m_TagString: startPoint
@@ -108,3 +109,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
+--- !u!114 &7665102400175046346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4845843945252797682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8b968325ff6c24fa771415bfb8bdf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    position: {x: 0, y: 0}
+    objectType: 1
