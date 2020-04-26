@@ -73,6 +73,20 @@ public class SpawnObjects : MonoBehaviour
 
         dataList.Add(spawnableObjectData);
     }
+    void RemoveDataFromList()
+    {
+        float x = spawnedObject.transform.position.x;
+        float y = spawnedObject.transform.position.y;
+        Vector2 objectPosition = new Vector2(x, y);
+        var objectData = spawnedObject.GetComponent<SpawnableObjectData>().data.objectType;
+
+        SpawnableObjectData.Data spawnableObjectData = new SpawnableObjectData.Data();
+        spawnableObjectData.position = objectPosition;
+        spawnableObjectData.objectType = objectData;
+
+        dataList.Remove(spawnableObjectData);
+    }
+
 
     void DestroyObjects()
     {
@@ -97,6 +111,7 @@ public class SpawnObjects : MonoBehaviour
             }
             else
                 return;
+            RemoveDataFromList();
 
         }
     }
