@@ -73,21 +73,7 @@ public class SpawnObjects : MonoBehaviour
 
         dataList.Add(spawnableObjectData);
     }
-    void RemoveDataFromList()
-    {
-        float x = spawnedObject.transform.position.x;
-        float y = spawnedObject.transform.position.y;
-        Vector2 objectPosition = new Vector2(x, y);
-        var objectData = spawnedObject.GetComponent<SpawnableObjectData>().data.objectType;
-
-        SpawnableObjectData.Data spawnableObjectData = new SpawnableObjectData.Data();
-        spawnableObjectData.position = objectPosition;
-        spawnableObjectData.objectType = objectData;
-
-        dataList.Remove(spawnableObjectData);
-    }
-
-
+    
     void DestroyObjects()
     {
         if (Input.GetMouseButtonDown(1))
@@ -111,7 +97,16 @@ public class SpawnObjects : MonoBehaviour
             }
             else
                 return;
-            RemoveDataFromList();
+            float x = hit.collider.transform.position.x;
+            float y = hit.collider.transform.position.y;
+            Vector2 objectPosition = new Vector2(x, y);
+            var objectData = hit.collider.GetComponent<SpawnableObjectData>().data.objectType;
+
+            SpawnableObjectData.Data spawnableObjectData = new SpawnableObjectData.Data();
+            spawnableObjectData.position = objectPosition;
+            spawnableObjectData.objectType = objectData;
+
+            dataList.Remove(spawnableObjectData);
 
         }
     }

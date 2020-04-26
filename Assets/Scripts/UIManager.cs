@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     public void Menu()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1;
     }
 
     public void CreateLevelScene()
