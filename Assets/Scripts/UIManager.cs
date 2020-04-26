@@ -5,10 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-  
-    private void LoadCreateLevelMenu()
+    [SerializeField] private GameObject saveLevelMenu;
+    public void LoadSaveLevelMenu()
     {
-        SceneManager.LoadScene("Create Levell Menu");
+        saveLevelMenu.SetActive(true);
+    }
+    
+    public void CloseSaveLevelMenu()
+    {
+        saveLevelMenu.SetActive(false);
+    }
+
+    public void Menu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void CreateLevelScene()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public void LoadLevelScene()
+    {
+        SceneManager.LoadScene(1);
     }
 
 }
