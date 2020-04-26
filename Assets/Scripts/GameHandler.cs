@@ -14,7 +14,7 @@ public class GameHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CreateEditor();
+        CreateLevelData();
     }
 
     // Update is called once per frame
@@ -23,7 +23,7 @@ public class GameHandler : MonoBehaviour
         
     }
 
-    LevelData CreateEditor()
+    LevelData CreateLevelData()
     {
         level = new LevelData();
         level.objectData = new List<SpawnableObjectData.Data>();
@@ -37,7 +37,7 @@ public class GameHandler : MonoBehaviour
             level.objectData.Add(obj.data);
 
         string json = JsonUtility.ToJson(level);
-        string folder = Application.dataPath + "/LevelData";
+        string folder = Application.dataPath + "/SavedData";
         string levelFile = "";
 
         if (saveLevelName.text == "")
@@ -53,14 +53,14 @@ public class GameHandler : MonoBehaviour
         File.WriteAllText(path, json);
         saveLevelName.text = "";
         saveLevelName.DeactivateInputField();
-        SaveLoadMessage.text = levelFile + " Saved to LevelData folder.";
+        SaveLoadMessage.text = levelFile + " Saved !!";
     }
 
     public void LoadLevel()
     {
         playerSpawner.SetActive(true);
         loadLevelMenu.SetActive(false);
-        string folder = Application.dataPath + "/LevelData";
+        string folder = Application.dataPath + "/SavedData";
         string levelfile = "";
         if (loadLevelName.text == "")
             levelfile = "new_level.json";
@@ -77,65 +77,65 @@ public class GameHandler : MonoBehaviour
           
             string json = File.ReadAllText(path);
             level = JsonUtility.FromJson<LevelData>(json);
-            CreateFromFile();
+            InstantiateLevel();
         }
         else
         {
-            SaveLoadMessage.text = levelfile + " Could not be found !";
+            SaveLoadMessage.text = levelfile + " Doesn't Exist";
             loadLevelName.DeactivateInputField();
         }
     }
 
-    void CreateFromFile()
+    void InstantiateLevel()
     {
-        GameObject NewObject;
+        GameObject newObject;
         for (int i = 0; i < level.objectData.Count; i++)
         {
             if (level.objectData[i].objectType == SpawnableObjectData.DataType.platform)
             {
-                NewObject = Instantiate(platform, level.objectData[i].position, Quaternion.identity);
-                NewObject.layer = 9;
+                newObject = Instantiate(platform, level.objectData[i].position, Quaternion.identity);
+                
 
-                SpawnableObjectData eo = NewObject.AddComponent<SpawnableObjectData>();
-                eo.data.position = NewObject.transform.position;
-                eo.data.objectType = SpawnableObjectData.DataType.platform;
+                SpawnableObjectData spawnableObj = newObject.AddComponent<SpawnableObjectData>();
+                spawnableObj.data.position = newObject.transform.position;
+                spawnableObj.data.objectType = SpawnableObjectData.DataType.platform;
             }
 
             else if (level.objectData[i].objectType == SpawnableObjectData.DataType.coin)
             {
-                NewObject = Instantiate(coin, level.objectData[i].position, Quaternion.identity);
-                NewObject.layer = 9;
+                newObject = Instantiate(coin, level.objectData[i].position, Quaternion.identity);
+                
 
-                SpawnableObjectData eo = NewObject.AddComponent<SpawnableObjectData>();
-                eo.data.position = NewObject.transform.position;
-                eo.data.objectType = SpawnableObjectData.DataType.coin;
+                SpawnableObjectData spawnableObj = newObject.AddComponent<SpawnableObjectData>();
+                spawnableObj.data.position = newObject.transform.position;
+                spawnableObj.data.objectType = SpawnableObjectData.DataType.coin;
             }
 
             
 
             else if (level.objectData[i].objectType == SpawnableObjectData.DataType.startPos)
             {
-                NewObject = Instantiate(startPoint, level.objectData[i].position, Quaternion.identity);
-                NewObject.layer = 9; // set to Spawned Objects layer
+                newObject = Instantiate(startPoint, level.objectData[i].position, Quaternion.identity);
+                
 
-                SpawnableObjectData eo = NewObject.AddComponent<SpawnableObjectData>();
-                eo.data.position = NewObject.transform.position;
-                eo.data.objectType = SpawnableObjectData.DataType.startPos;
+                SpawnableObjectData spawnableObj = newObject.AddComponent<SpawnableObjectData>();
+                spawnableObj.data.position = newObject.transform.position;
+                spawnableObj.data.objectType = SpawnableObjectData.DataType.startPos;
             }
 
             else if (level.objectData[i].objectType == SpawnableObjectData.DataType.endPos)
             {
-                NewObject = Instantiate(endPoint, level.objectData[i].position, Quaternion.identity);
-                NewObject.layer = 9; // set to Spawned Objects layer
+                newObject = Instantiate(endPoint, level.objectData[i].position, Quaternion.identity);
+                 
              
-                SpawnableObjectData eo = NewObject.AddComponent<SpawnableObjectData>();
-                eo.data.position = NewObject.transform.position;
-                eo.data.objectType = SpawnableObjectData.DataType.endPos;
+                SpawnableObjectData spawnableObj = newObject.AddComponent<SpawnableObjectData>();
+                spawnableObj.data.position = newObject.transform.position;
+                spawnableObj.data.objectType = SpawnableObjectData.DataType.endPos;
             }
         }
         loadLevelName.text = "";
         loadLevelName.DeactivateInputField();
-        SaveLoadMessage.text = " Level Loading done";
+        SaveLoadMessage.text = " Loaded !!";
     }
 
 }
